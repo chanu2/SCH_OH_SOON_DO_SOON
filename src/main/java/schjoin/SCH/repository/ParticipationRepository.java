@@ -29,5 +29,12 @@ public class ParticipationRepository {
          em.createQuery("delete from Participation p where p.id = :id ").setParameter("id",id).executeUpdate();
     }
 
+    public List<Participation> findReserveInfo(Long id){
+        return em.createQuery("select p from Participation p"+
+                " left join fetch p.member m"+
+                " left join fetch p.reserve r"+
+                " where r.id = :id ",Participation.class).setParameter("id",id).getResultList();
+    }
+
 
 }

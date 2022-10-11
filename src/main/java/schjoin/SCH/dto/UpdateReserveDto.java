@@ -18,7 +18,7 @@ public class UpdateReserveDto {
     private Sport sport;
 
     private LocalDate reserveDate;
-    private LocalTime starT;
+    private LocalTime startT;
     private LocalTime endT;
 
     private String title;
@@ -27,9 +27,13 @@ public class UpdateReserveDto {
     public UpdateReserveDto(Sport sport, LocalDate reserveDate, LocalTime starT, LocalTime endT, String title, String explanation) {
         this.sport = sport;
         this.reserveDate = reserveDate;
-        this.starT = starT;
+        this.startT = starT;
         this.endT = endT;
         this.title = title;
         this.explanation = explanation;
+    }
+
+    public UpdateReserveDto(){
+
     }
 }

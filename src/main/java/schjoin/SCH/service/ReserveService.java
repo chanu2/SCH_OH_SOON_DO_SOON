@@ -7,6 +7,7 @@ import schjoin.SCH.domain.Member;
 import schjoin.SCH.domain.Participation;
 import schjoin.SCH.domain.Reserve;
 import schjoin.SCH.domain.Sport;
+import schjoin.SCH.dto.CreateReserveDto;
 import schjoin.SCH.dto.UpdateReserveDto;
 import schjoin.SCH.repository.MemberRepository;
 import schjoin.SCH.repository.ParticipationRepository;
@@ -30,15 +31,19 @@ public class ReserveService {
 
     //구장 생성
     @Transactional
-    public Long reserve(Long memberId, String title, String explanation,
-                        Integer recruitmentNum, Sport sport, LocalTime endT, LocalTime startT, LocalDate reserveDate){
+    public Long reserve(CreateReserveDto createReserveDto){
 
         //엔티티 조회
-        Member member = memberRepository.findOne(memberId);
+        Member member = memberRepository.findOne(createReserveDto.getMemberId());
 
         // 경기 생성
-        Reserve reserve = Reserve.createReserve(member,title,explanation,
-                recruitmentNum,sport,endT,startT,reserveDate);
+        Reserve reserve = Reserve.createReserve(member, createReserveDto.getTitle(),
+                createReserveDto.getExplanation(),
+                createReserveDto.getRecruitmentNum(),
+                createReserveDto.getSport(),
+                createReserveDto.getEndT(),
+                createReserveDto.getStartT(),
+                createReserveDto.getReserveDate());
 
         //경기 저장
         reserveRepository.save(reserve);
@@ -71,7 +76,7 @@ public class ReserveService {
 
         reserve.setReserveDate(reserveDto.getReserveDate());
         reserve.setEndT(reserveDto.getEndT());
-        reserve.setStartT(reserveDto.getStarT());
+        reserve.setStartT(reserveDto.getStartT());
 
         reserve.setSport(reserveDto.getSport());
 
@@ -102,6 +107,11 @@ public class ReserveService {
 
         return reserveRepository.findBySportDate(day,sport);
 
+    }
+
+    @Transactional
+    public Reserve findOne(Long reserveId){
+        return reserveRepository.findOne(reserveId);
     }
 
 

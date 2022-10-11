@@ -10,6 +10,8 @@ import schjoin.SCH.repository.MemberRepository;
 import schjoin.SCH.repository.ParticipationRepository;
 import schjoin.SCH.repository.ReserveRepository;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -49,6 +51,14 @@ public class ParticipationService {
 
         //예약 최소
         participationRepository.delete(participation.getId());
+
+    }
+
+    // 방정보 조회
+    @Transactional
+    public List<Participation> reserveInfo(Long reserveId){
+
+        return participationRepository.findReserveInfo(reserveId);
 
     }
 

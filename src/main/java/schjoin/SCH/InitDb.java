@@ -42,27 +42,41 @@ public class InitDb {
 
             Member member = new Member();
             Member member1 = new Member();
+            Member member2 = new Member();
+            Member member3 = new Member();
 
 
 
             member.setName("김찬우");
             member1.setName("이훈일");
+            member2.setName("조준장");
+            member3.setName("이선희");
 
 
             member.setPhoneNum("01082527933");
-            member1.setPhoneNum("01082567865");
+            member1.setPhoneNum("010825673865");
+            member2.setPhoneNum("010825678265");
+            member3.setPhoneNum("010825617865");
 
             member.setSchoolNum("12");
             member1.setSchoolNum("123");
+            member2.setSchoolNum("12563");
+            member3.setSchoolNum("1123");
 
             member.setPassword("123jhu");
             member1.setPassword("asdsdwd");
+            member2.setPassword("asdsd12wd");
+            member3.setPassword("asd12sdwd");
 
             member.setLoginId("1234");
             member1.setLoginId("123아4");
+            member2.setLoginId("1253아4");
+            member3.setLoginId("12313아4");
 
             em.persist(member);
             em.persist(member1);
+            em.persist(member2);
+            em.persist(member3);
 
 
             Reserve reserve = new Reserve();
@@ -92,7 +106,16 @@ public class InitDb {
             em.persist(reserve);
             em.persist(reserve1);
 
+            Participation participation = new Participation();
+            participation.setReserve(reserve);
+            participation.setMember(member2);
 
+            Participation participation1 = new Participation();
+            participation1.setReserve(reserve);
+            participation1.setMember(member3);
+
+            em.persist(participation);
+            em.persist(participation1);
 
 
 
