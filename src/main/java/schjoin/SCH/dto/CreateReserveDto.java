@@ -3,6 +3,7 @@ package schjoin.SCH.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import schjoin.SCH.domain.Gender;
 import schjoin.SCH.domain.Sport;
 
 import javax.swing.plaf.PanelUI;
@@ -28,7 +29,11 @@ public class CreateReserveDto {
 
     private LocalDate reserveDate;
 
-    public CreateReserveDto(Long memberId, String title, String explanation, Integer recruitmentNum, Sport sport, LocalTime endT, LocalTime startT, LocalDate reserveDate) {
+    private String place;
+
+    private Gender gender;
+
+    public CreateReserveDto(Long memberId, String title, String explanation, Integer recruitmentNum, Sport sport, LocalTime endT, LocalTime startT, LocalDate reserveDate,String place,Gender gender) {
         this.memberId = memberId;
         this.title = title;
         this.explanation = explanation;
@@ -37,6 +42,8 @@ public class CreateReserveDto {
         this.endT = endT;
         this.startT = startT;
         this.reserveDate = reserveDate;
+        this.place = place;
+        this.gender = gender;
     }
     public CreateReserveDto(){
 

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import schjoin.SCH.domain.Member;
 import schjoin.SCH.domain.Participation;
 import schjoin.SCH.domain.Reserve;
+import schjoin.SCH.dto.ParticipationSportDto;
 import schjoin.SCH.repository.MemberRepository;
 import schjoin.SCH.repository.ParticipationRepository;
 import schjoin.SCH.repository.ReserveRepository;
@@ -21,12 +22,12 @@ public class ParticipationService {
     private final ReserveRepository reserveRepository;
     private final ParticipationRepository participationRepository;
 
-    //참가자//
+    //참가 하기//
     @Transactional
-    public Long participation(Long memberId,Long reserveId){
+    public Long participation(ParticipationSportDto participationSportDto){
         //엔티티 조회
-        Member member = memberRepository.findOne(memberId);
-        Reserve reserve = reserveRepository.findOne(reserveId);
+        Member member = memberRepository.findOne(participationSportDto.getMemberId());
+        Reserve reserve = reserveRepository.findOne(participationSportDto.getReserveId());
 
         //참가자 만들기
         Participation participation = Participation.createParticipation(member,reserve);

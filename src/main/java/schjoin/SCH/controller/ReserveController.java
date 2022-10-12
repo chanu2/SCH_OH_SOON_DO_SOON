@@ -4,15 +4,16 @@ package schjoin.SCH.controller;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import schjoin.SCH.domain.Reserve;
 import schjoin.SCH.domain.Sport;
-import schjoin.SCH.dto.CreateReserveDto;
-import schjoin.SCH.dto.ReserveDto;
-import schjoin.SCH.dto.SimpleReserveDto;
-import schjoin.SCH.dto.UpdateReserveDto;
+import schjoin.SCH.dto.*;
+import schjoin.SCH.response.DefaultRes;
+import schjoin.SCH.response.StatusCode;
 import schjoin.SCH.service.ReserveService;
 
 import java.time.LocalDate;
@@ -30,59 +31,73 @@ public class ReserveController {
 
     // 경기 생성
     @PostMapping("reserves/v1/create")
-    public Long createReserve(@RequestBody @Validated CreateReserveDto createReserveDto){
+    public ResponseEntity createReserve(@RequestBody @Validated CreateReserveDto createReserveDto){
 
         Long reserve = reserveService.reserve(createReserveDto);
 
-        return reserve;
+        return reserve != null ?
+                new ResponseEntity(DefaultRes.res(StatusCode.OK, "매칭 추가 완료"), HttpStatus.OK) :
+                new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);
     }
 
 
 
     //경기 업데이트
     @PostMapping("reserves/v1/edit/{reserveId}")
-    public String updateReserve(@PathVariable Long reserveId, @RequestBody @Validated UpdateReserveDto dto){
+    public ResponseEntity updateReserve(@PathVariable Long reserveId, @RequestBody @Validated UpdateReserveDto dto){
 
-        reserveService.updateReserve(reserveId,dto);
+        Long reserve = reserveService.updateReserve(reserveId, dto);
 
-        return "ok";
-    }
+        return reserve != null ?
+                new ResponseEntity(DefaultRes.res(StatusCode.OK, "매칭 추가 완료"), HttpStatus.OK) :
+                new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);    }
 
 
     // 원하는 날짜,스포츠 정렬해서 경기들 보여 주기
     @GetMapping("reserves/date")
-    public SportDateResponse showSports(@RequestParam(name = "day") String day,@RequestParam(name = "sport") String sport){
+    public ResponseEntity showSports(@RequestParam(name = "sport") String sport,@RequestParam(name = "day") String day){
         LocalDate date = LocalDate.parse(day, DateTimeFormatter.ISO_DATE);
         Sport sport1 =Sport.valueOf(sport);
 
         List<Reserve> reserves = reserveService.sportDate(date, sport1);
         List<SimpleReserveDto> collect = reserves.stream().map(s -> new SimpleReserveDto(s)).collect(Collectors.toList());
 
-        return new SportDateResponse(collect);
+        return collect != null ?
+                new ResponseEntity(DefaultRes.res(StatusCode.OK, "매칭 조회 완료", collect), HttpStatus.OK) :
+                new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);
 
     }
 
-    @Data
-    @AllArgsConstructor
-    static class SportDateResponse<T>{
-        private T data;
-    }
-
-    @Data
-    @AllArgsConstructor
-    static class SportDateDto{
-        private LocalDate day;
-        private Sport sport;
-    }
 
 
     // 경기 삭제
     @DeleteMapping("reserves/v1/delete/{reserveId}")
-    public String deleteReserve(@PathVariable Long reserveId){
+    public ResponseEntity deleteReserve(@PathVariable Long reserveId){
 
         reserveService.cancelReserve(reserveId);
 
-        return "ok";
+        return reserveId != null ?
+                new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK):
+                new ResponseEntity(DefaultRes.res(StatusCode.OK, "경기예약 삭제 완료"), HttpStatus.OK) ;
+
+    }
+
+    // 경기 정보 전체 보여주기
+
+
+    // 오늘 날짜 경기 전체 보여주기
+    @GetMapping("reserve/show/today-sport")
+    public TodaySportsResponse showTodaySports(@RequestParam(name = "today") String today){
+        LocalDate date = LocalDate.parse(today, DateTimeFormatter.ISO_DATE);
+        List<Reserve> reserve = reserveService.todayMatch(date);
+        List<TodaySportsDto> collect = reserve.stream().map(r -> new TodaySportsDto(r)).collect(Collectors.toList());
+        return new TodaySportsResponse<>(collect);
+
+    }
+    @Data
+    @AllArgsConstructor
+    static class TodaySportsResponse<T>{
+        private T data;
     }
 
 

@@ -63,16 +63,6 @@ public class InitDb {
             member2.setSchoolNum("12563");
             member3.setSchoolNum("1123");
 
-            member.setPassword("123jhu");
-            member1.setPassword("asdsdwd");
-            member2.setPassword("asdsd12wd");
-            member3.setPassword("asd12sdwd");
-
-            member.setLoginId("1234");
-            member1.setLoginId("123아4");
-            member2.setLoginId("1253아4");
-            member3.setLoginId("12313아4");
-
             em.persist(member);
             em.persist(member1);
             em.persist(member2);
@@ -103,8 +93,21 @@ public class InitDb {
             reserve1.setCurrentNum(2);
             reserve1.setRecruitmentNum(12);
 
+            Reserve reserve2 = new Reserve();
+            reserve2.setMember(member1);
+            reserve2.setSport(Sport.BASKETBALL);
+            reserve2.setReserveDate(LocalDate.of(2000, 1, 3));
+            reserve2.setStartT( LocalTime.of(9, 30));
+            reserve2.setEndT( LocalTime.of( 11, 30));
+            reserve2.setNowReserveT(LocalDateTime.now());
+            reserve2.setTitle("농구");
+            reserve2.setExplanation("농구");
+            reserve2.setCurrentNum(3);
+            reserve2.setRecruitmentNum(12);
+
             em.persist(reserve);
             em.persist(reserve1);
+            em.persist(reserve2);
 
             Participation participation = new Participation();
             participation.setReserve(reserve);

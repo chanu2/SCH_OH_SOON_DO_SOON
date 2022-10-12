@@ -39,8 +39,12 @@ public class Reserve {
 
     private String title;
     private String explanation;
+    private String place;
     private Integer currentNum;
     private Integer recruitmentNum;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     //==연관관계 메서드==//
     public void addParticipation(Participation participation){
@@ -56,7 +60,7 @@ public class Reserve {
 
     //==생성 메서드==//
     public static Reserve createReserve(Member member, String title, String explanation,
-                                        Integer recruitmentNum, Sport sport, LocalTime endT,LocalTime startT,LocalDate reserveDate){
+                                        Integer recruitmentNum, Sport sport, LocalTime endT,LocalTime startT,LocalDate reserveDate,String place,Gender gender){
         Reserve reserve = new Reserve();
         reserve.setMember(member);
         reserve.setExplanation(explanation);
@@ -68,6 +72,8 @@ public class Reserve {
         reserve.setSport(sport);
         reserve.setNowReserveT(LocalDateTime.now());
         reserve.setCurrentNum(1);
+        reserve.setPlace(place);
+        reserve.setGender(gender);
 
         return reserve;
     }

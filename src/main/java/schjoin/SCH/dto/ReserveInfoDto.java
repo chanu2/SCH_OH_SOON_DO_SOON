@@ -3,6 +3,7 @@ package schjoin.SCH.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import schjoin.SCH.domain.Gender;
 import schjoin.SCH.domain.Participation;
 import schjoin.SCH.domain.Sport;
 
@@ -30,6 +31,10 @@ public class ReserveInfoDto {
     private String name;
     private String schoolNum;
 
+    private String place;
+
+    private Gender gender;
+
     public ReserveInfoDto(Participation participation){
 
         id = participation.getReserve().getId();
@@ -44,5 +49,8 @@ public class ReserveInfoDto {
 
         name = participation.getMember().getName();
         schoolNum = participation.getMember().getSchoolNum();
+
+        place = participation.getReserve().getPlace();
+        gender = participation.getReserve().getGender();
     }
 }

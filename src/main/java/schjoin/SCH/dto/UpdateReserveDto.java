@@ -4,6 +4,7 @@ package schjoin.SCH.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import schjoin.SCH.domain.Gender;
 import schjoin.SCH.domain.Reserve;
 import schjoin.SCH.domain.Sport;
 
@@ -24,13 +25,18 @@ public class UpdateReserveDto {
     private String title;
     private String explanation;
 
-    public UpdateReserveDto(Sport sport, LocalDate reserveDate, LocalTime starT, LocalTime endT, String title, String explanation) {
+    private String place;
+    private Gender gender;
+
+    public UpdateReserveDto(Sport sport, LocalDate reserveDate, LocalTime starT, LocalTime endT, String title, String explanation,String place,Gender gender) {
         this.sport = sport;
         this.reserveDate = reserveDate;
         this.startT = starT;
         this.endT = endT;
         this.title = title;
         this.explanation = explanation;
+        this.place = place;
+        this.gender = gender;
     }
 
     public UpdateReserveDto(){

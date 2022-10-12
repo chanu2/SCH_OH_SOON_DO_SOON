@@ -43,7 +43,9 @@ public class ReserveService {
                 createReserveDto.getSport(),
                 createReserveDto.getEndT(),
                 createReserveDto.getStartT(),
-                createReserveDto.getReserveDate());
+                createReserveDto.getReserveDate(),
+                createReserveDto.getPlace(),
+                createReserveDto.getGender());
 
         //경기 저장
         reserveRepository.save(reserve);
@@ -70,7 +72,7 @@ public class ReserveService {
 
     // 구장 업데이트
    @Transactional
-    public void updateReserve(Long reserveId, UpdateReserveDto reserveDto){
+    public Long updateReserve(Long reserveId, UpdateReserveDto reserveDto){
 
         Reserve reserve = reserveRepository.findOne(reserveId);
 
@@ -80,9 +82,12 @@ public class ReserveService {
 
         reserve.setSport(reserveDto.getSport());
 
-       reserve.setTitle(reserveDto.getTitle());
-       reserve.setExplanation(reserveDto.getExplanation());
+        reserve.setTitle(reserveDto.getTitle());
+        reserve.setExplanation(reserveDto.getExplanation());
+        reserve.setPlace(reserveDto.getPlace());
+        reserve.setGender(reserveDto.getGender());
 
+       return reserveId;
    }
 
 
