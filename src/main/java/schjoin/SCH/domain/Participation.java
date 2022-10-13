@@ -16,16 +16,16 @@ public class Participation{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reserve_id")
     private Reserve reserve;
 
     //==생성 메서드==//
-    public static Participation createParticipation(Member member,Reserve reserve){
+    public static Participation createParticipation(User user, Reserve reserve){
         Participation participation = new Participation();
-        participation.setMember(member);
+        participation.setUser(user);
         //reserve.addParticipation(participation);
         //participation.setReserve(reserve); // 연관 관계 메서드 사용?
         return participation;

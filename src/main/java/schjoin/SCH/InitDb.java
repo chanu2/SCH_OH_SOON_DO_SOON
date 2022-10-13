@@ -4,12 +4,10 @@ package schjoin.SCH;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import schjoin.SCH.domain.Member;
+import schjoin.SCH.domain.User;
 import schjoin.SCH.domain.Participation;
 import schjoin.SCH.domain.Reserve;
 import schjoin.SCH.domain.Sport;
-import schjoin.SCH.service.ParticipationService;
-import schjoin.SCH.service.ReserveService;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -40,37 +38,37 @@ public class InitDb {
 
         public void dbInit1() {
 
-            Member member = new Member();
-            Member member1 = new Member();
-            Member member2 = new Member();
-            Member member3 = new Member();
+            User user = new User();
+            User user1 = new User();
+            User user2 = new User();
+            User user3 = new User();
 
 
 
-            member.setName("김찬우");
-            member1.setName("이훈일");
-            member2.setName("조준장");
-            member3.setName("이선희");
+            user.setName("김찬우");
+            user1.setName("이훈일");
+            user2.setName("조준장");
+            user3.setName("이선희");
 
 
-            member.setPhoneNum("01082527933");
-            member1.setPhoneNum("010825673865");
-            member2.setPhoneNum("010825678265");
-            member3.setPhoneNum("010825617865");
+            user.setPhoneNum("01082527933");
+            user1.setPhoneNum("010825673865");
+            user2.setPhoneNum("010825678265");
+            user3.setPhoneNum("010825617865");
 
-            member.setSchoolNum("12");
-            member1.setSchoolNum("123");
-            member2.setSchoolNum("12563");
-            member3.setSchoolNum("1123");
+            user.setSchoolNum("12");
+            user1.setSchoolNum("123");
+            user2.setSchoolNum("12563");
+            user3.setSchoolNum("1123");
 
-            em.persist(member);
-            em.persist(member1);
-            em.persist(member2);
-            em.persist(member3);
+            em.persist(user);
+            em.persist(user1);
+            em.persist(user2);
+            em.persist(user3);
 
 
             Reserve reserve = new Reserve();
-            reserve.setMember(member);
+            reserve.setUser(user);
             reserve.setSport(Sport.SOCCER);
             reserve.setReserveDate(LocalDate.of(2000, 1, 3));
             reserve.setStartT( LocalTime.of(18, 30));
@@ -82,7 +80,7 @@ public class InitDb {
             reserve.setRecruitmentNum(12);
 
             Reserve reserve1 = new Reserve();
-            reserve1.setMember(member1);
+            reserve1.setUser(user1);
             reserve1.setSport(Sport.SOCCER);
             reserve1.setReserveDate(LocalDate.of(2000, 1, 3));
             reserve1.setStartT( LocalTime.of(18, 19));
@@ -94,7 +92,7 @@ public class InitDb {
             reserve1.setRecruitmentNum(12);
 
             Reserve reserve2 = new Reserve();
-            reserve2.setMember(member1);
+            reserve2.setUser(user1);
             reserve2.setSport(Sport.BASKETBALL);
             reserve2.setReserveDate(LocalDate.of(2000, 1, 3));
             reserve2.setStartT( LocalTime.of(9, 30));
@@ -111,11 +109,11 @@ public class InitDb {
 
             Participation participation = new Participation();
             participation.setReserve(reserve);
-            participation.setMember(member2);
+            participation.setUser(user2);
 
             Participation participation1 = new Participation();
             participation1.setReserve(reserve);
-            participation1.setMember(member3);
+            participation1.setUser(user3);
 
             em.persist(participation);
             em.persist(participation1);

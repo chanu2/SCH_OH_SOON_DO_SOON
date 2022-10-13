@@ -53,7 +53,7 @@ public class ReserveRepository {
     // 오늘 날짜 모든 경기
     public List<Reserve> findByToday(LocalDate todayDate){
 
-        return em.createQuery("select r from Reserve r where r.reserveDate = :todayDate ",Reserve.class)
+        return em.createQuery("select r from Reserve r where r.reserveDate = :todayDate order by r.startT",Reserve.class)
                 .setParameter("todayDate",todayDate).getResultList();
     }
 

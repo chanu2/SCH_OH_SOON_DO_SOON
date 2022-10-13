@@ -31,7 +31,7 @@ public class ReserveController {
 
 
     // 경기 생성
-    @PostMapping("reserves/v1/create")
+    @PostMapping("reserves/creation")
     public ResponseEntity createReserve(@RequestBody @Validated CreateReserveDto createReserveDto){
 
         Long reserve = reserveService.reserve(createReserveDto);
@@ -44,7 +44,7 @@ public class ReserveController {
 
 
     //경기 업데이트
-    @PostMapping("reserves/v1/edit/{reserveId}")
+    @PostMapping("reserves/{reserveId}/edit")
     public ResponseEntity updateReserve(@PathVariable Long reserveId, @RequestBody @Validated UpdateReserveDto dto){
 
         Long reserve = reserveService.updateReserve(reserveId, dto);
@@ -55,7 +55,7 @@ public class ReserveController {
 
 
     // 원하는 날짜,스포츠 정렬해서 경기들 보여 주기
-    @GetMapping("reserves/date")
+    @GetMapping("reserves/get/sports-date")
     public ResponseEntity showSports(@RequestParam(name = "sport") String sport,@RequestParam(name = "day") String day){
         LocalDate date = LocalDate.parse(day, DateTimeFormatter.ISO_DATE);
         Sport sport1 =Sport.valueOf(sport);
@@ -72,7 +72,7 @@ public class ReserveController {
 
 
     // 경기 삭제
-    @DeleteMapping("reserves/v1/delete/{reserveId}")
+    @DeleteMapping("reserves/{reserveId}/delete")
     public ResponseEntity deleteReserve(@PathVariable Long reserveId){
 
         reserveService.cancelReserve(reserveId);
@@ -87,7 +87,7 @@ public class ReserveController {
 
 
     // 오늘 날짜 경기 전체 보여주기
-    @GetMapping("reserve/show/today-sport")
+    @GetMapping("reserves/get/today-sport")
     public ResponseEntity showTodaySports(@RequestParam(name = "today") String today){
         LocalDate date = LocalDate.parse(today, DateTimeFormatter.ISO_DATE);
         List<Reserve> reserve = reserveService.todayMatch(date);
@@ -100,7 +100,7 @@ public class ReserveController {
     }
 
     //경기 세부 정보 보여주기
-    @GetMapping("reserve/{reserveId}/reserve-info")
+    @GetMapping("reserves/{reserveId}/reserve-info")
     public ResponseEntity reserve1(@PathVariable("reserveId") Long reserveId) {
 
         ReserveDto reserve = reserveService.findOne(reserveId);// 경기 정보

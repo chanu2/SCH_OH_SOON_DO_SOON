@@ -3,13 +3,13 @@ package schjoin.SCH.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import schjoin.SCH.domain.Member;
+import schjoin.SCH.domain.User;
 import schjoin.SCH.domain.Reserve;
 import schjoin.SCH.domain.Sport;
 import schjoin.SCH.dto.CreateReserveDto;
 import schjoin.SCH.dto.ReserveDto;
 import schjoin.SCH.dto.UpdateReserveDto;
-import schjoin.SCH.repository.MemberRepository;
+import schjoin.SCH.repository.UserRepository;
 import schjoin.SCH.repository.ParticipationRepository;
 import schjoin.SCH.repository.ReserveRepository;
 
@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReserveService {
 
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
     private final ReserveRepository reserveRepository;
 
     private final ParticipationRepository participationRepository;
@@ -32,10 +32,10 @@ public class ReserveService {
     public Long reserve(CreateReserveDto createReserveDto){
 
         //엔티티 조회
-        Member member = memberRepository.findOne(createReserveDto.getMemberId());
+        User user = userRepository.findOne(createReserveDto.getMemberId());
 
         // 경기 생성
-        Reserve reserve = Reserve.createReserve(member, createReserveDto.getTitle(),
+        Reserve reserve = Reserve.createReserve(user, createReserveDto.getTitle(),
                 createReserveDto.getExplanation(),
                 createReserveDto.getRecruitmentNum(),
                 createReserveDto.getSport(),

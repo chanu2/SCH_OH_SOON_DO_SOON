@@ -21,7 +21,7 @@ public class Reserve {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member;
+    private User user;
 
     //orphanRemoval = true를 사용하면 부모의 엔티티가 사라지면 자식들도 다 사라진다 participations인 컬렉션은 다 날라간다
     @OneToMany(mappedBy = "reserve", orphanRemoval = true)
@@ -58,10 +58,10 @@ public class Reserve {
     }
 
     //==생성 메서드==//
-    public static Reserve createReserve(Member member, String title, String explanation,
-                                        Integer recruitmentNum, Sport sport, LocalTime endT,LocalTime startT,LocalDate reserveDate,String place,Gender gender){
+    public static Reserve createReserve(User user, String title, String explanation,
+                                        Integer recruitmentNum, Sport sport, LocalTime endT, LocalTime startT, LocalDate reserveDate, String place, Gender gender){
         Reserve reserve = new Reserve();
-        reserve.setMember(member);
+        reserve.setUser(user);
         reserve.setExplanation(explanation);
         reserve.setReserveDate(reserveDate);
         reserve.setStartT(startT);

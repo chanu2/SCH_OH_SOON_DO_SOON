@@ -3,7 +3,7 @@ package schjoin.SCH.dto;
 import lombok.Getter;
 
 @Getter
-public class AddMemberDto {
+public class AddUserDto {
 
     private String name;
     private String schoolNum;

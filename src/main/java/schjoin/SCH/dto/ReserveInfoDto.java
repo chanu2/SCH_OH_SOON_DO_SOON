@@ -8,7 +8,6 @@ import schjoin.SCH.domain.Participation;
 import schjoin.SCH.domain.Sport;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -47,8 +46,8 @@ public class ReserveInfoDto {
         currentNum = participation.getReserve().getCurrentNum();
         recruitmentNum = participation.getReserve().getRecruitmentNum();
 
-        name = participation.getMember().getName();
-        schoolNum = participation.getMember().getSchoolNum();
+        name = participation.getUser().getName();
+        schoolNum = participation.getUser().getSchoolNum();
 
         place = participation.getReserve().getPlace();
         gender = participation.getReserve().getGender();

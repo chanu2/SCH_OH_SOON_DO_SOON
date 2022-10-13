@@ -1,6 +1,7 @@
 package schjoin.SCH.dto;
 
 import lombok.Getter;
+import schjoin.SCH.domain.Gender;
 import schjoin.SCH.domain.Reserve;
 import schjoin.SCH.domain.Sport;
 
@@ -27,6 +28,8 @@ public class TodaySportsDto {
 
     private Integer recruitmentNum;
 
+    private Gender gender;
+
     public TodaySportsDto(Reserve reserve){
         sport=reserve.getSport();
         reserveDate =reserve.getReserveDate();
@@ -36,6 +39,7 @@ public class TodaySportsDto {
         explanation = reserve.getExplanation();
         currentNum = reserve.getCurrentNum();
         recruitmentNum = reserve.getRecruitmentNum();
+        gender = reserve.getGender();
 
     }
 
