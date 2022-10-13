@@ -17,7 +17,7 @@ public class Member {
     private Long id;
 
     private String loginId;
-
+    private String password;
 
     private String name;
     private String schoolNum;
@@ -27,18 +27,14 @@ public class Member {
     }
 
     //==생성 메서드==//
-    public static Member addMember(String name,String schoolNum,String phoneNum){
+    public static Member addMember(String name,String schoolNum,String phoneNum,String loginId,String password){
         Member member= new Member();
         member.setName(name);
         member.setSchoolNum(schoolNum);
         member.setPhoneNum(phoneNum);
+        member.setLoginId(loginId);
+        member.setPassword(password);
         return member;
     }
-
-    //    @OneToMany(mappedBy = "member")
-//    private List<Reserve> reserves = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member")
-//    private List<Participation> participationMembers = new ArrayList<>();
 
 }

@@ -20,7 +20,7 @@ public class MemberService {
     //회원가입
     @Transactional
     public Long createMember(AddMemberDto addMemberDto){
-        Member member = Member.addMember(addMemberDto.getName(), addMemberDto.getSchoolNum(), addMemberDto.getPhoneNum());
+        Member member = Member.addMember(addMemberDto.getName(), addMemberDto.getSchoolNum(), addMemberDto.getPhoneNum(),addMemberDto.getLoginId(), addMemberDto.getPassword());
         memberRepository.save(member);
         return member.getId();
     }

@@ -8,4 +8,6 @@ public class AddMemberDto {
     private String name;
     private String schoolNum;
     private String phoneNum;
+    private String loginId;
+    private String password;
 }

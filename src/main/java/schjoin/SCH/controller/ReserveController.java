@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import schjoin.SCH.domain.Participation;
 import schjoin.SCH.domain.Reserve;
 import schjoin.SCH.domain.Sport;
 import schjoin.SCH.dto.*;
@@ -82,25 +83,34 @@ public class ReserveController {
 
     }
 
-    // 경기 정보 전체 보여주기
+
 
 
     // 오늘 날짜 경기 전체 보여주기
     @GetMapping("reserve/show/today-sport")
-    public TodaySportsResponse showTodaySports(@RequestParam(name = "today") String today){
+    public ResponseEntity showTodaySports(@RequestParam(name = "today") String today){
         LocalDate date = LocalDate.parse(today, DateTimeFormatter.ISO_DATE);
         List<Reserve> reserve = reserveService.todayMatch(date);
         List<TodaySportsDto> collect = reserve.stream().map(r -> new TodaySportsDto(r)).collect(Collectors.toList());
-        return new TodaySportsResponse<>(collect);
+
+        return collect != null ?
+                new ResponseEntity(DefaultRes.res(StatusCode.OK, "매칭 조회 완료", collect), HttpStatus.OK) :
+                new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);
 
     }
-    @Data
-    @AllArgsConstructor
-    static class TodaySportsResponse<T>{
-        private T data;
+
+    //경기 세부 정보 보여주기
+    @GetMapping("reserve/{reserveId}/reserve-info")
+    public ResponseEntity reserve1(@PathVariable("reserveId") Long reserveId) {
+
+        ReserveDto reserve = reserveService.findOne(reserveId);// 경기 정보
+
+
+        return reserve != null ?
+                new ResponseEntity(DefaultRes.res(StatusCode.OK, "경기 정보 보여주기 완료", reserve), HttpStatus.OK) :
+                new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);
+
     }
-
-
 
 
 

@@ -4,18 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import schjoin.SCH.domain.Member;
-import schjoin.SCH.domain.Participation;
 import schjoin.SCH.domain.Reserve;
 import schjoin.SCH.domain.Sport;
 import schjoin.SCH.dto.CreateReserveDto;
+import schjoin.SCH.dto.ReserveDto;
 import schjoin.SCH.dto.UpdateReserveDto;
 import schjoin.SCH.repository.MemberRepository;
 import schjoin.SCH.repository.ParticipationRepository;
 import schjoin.SCH.repository.ReserveRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -99,10 +97,6 @@ public class ReserveService {
 
     }
 
-    //구장에 관련된 정보 보여주기
-    
-
-
 
 
 
@@ -114,9 +108,19 @@ public class ReserveService {
 
     }
 
+
+    //구장에 관련된 정보 보여주기
     @Transactional
-    public Reserve findOne(Long reserveId){
-        return reserveRepository.findOne(reserveId);
+    public ReserveDto findOne(Long reserveId){
+
+
+        Reserve reserve = reserveRepository.findOne(reserveId);
+        ReserveDto reserveDto = new ReserveDto(reserve.getId(),reserve.getSport(),reserve.getReserveDate(),
+                reserve.getStartT(),reserve.getEndT(),reserve.getTitle(),reserve.getExplanation(),reserve.getCurrentNum(),reserve.getRecruitmentNum(),
+                reserve.getPlace(),reserve.getGender());
+
+        return reserveDto;
+
     }
 
 
