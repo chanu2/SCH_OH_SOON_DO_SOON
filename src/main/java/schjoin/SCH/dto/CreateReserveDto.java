@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @Getter
 public class CreateReserveDto {
 
-    private Long memberId;
+    private Long userId;
 
     private String title;
 
@@ -33,8 +33,8 @@ public class CreateReserveDto {
 
     private Gender gender;
 
-    public CreateReserveDto(Long memberId, String title, String explanation, Integer recruitmentNum, Sport sport, LocalTime endT, LocalTime startT, LocalDate reserveDate,String place,Gender gender) {
-        this.memberId = memberId;
+    public CreateReserveDto(Long userId, String title, String explanation, Integer recruitmentNum, Sport sport, LocalTime endT, LocalTime startT, LocalDate reserveDate,String place,Gender gender) {
+        this.userId = userId;
         this.title = title;
         this.explanation = explanation;
         this.recruitmentNum = recruitmentNum;

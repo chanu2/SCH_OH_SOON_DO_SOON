@@ -37,21 +37,38 @@ public class ReserveController {
         Long reserve = reserveService.reserve(createReserveDto);
 
         return reserve != null ?
-                new ResponseEntity(DefaultRes.res(StatusCode.OK, "매칭 추가 완료"), HttpStatus.OK) :
+                new ResponseEntity(DefaultRes.res(StatusCode.OK, "구장 예약 완료"), HttpStatus.OK) :
                 new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);
     }
 
 
 
     //경기 업데이트
-    @PostMapping("reserves/{reserveId}/edit")
-    public ResponseEntity updateReserve(@PathVariable Long reserveId, @RequestBody @Validated UpdateReserveDto dto){
+    @PostMapping("reserves/edit")
+    public ResponseEntity updateReserve(@RequestBody @Validated UpdateReserveDto dto){
 
-        Long reserve = reserveService.updateReserve(reserveId, dto);
+        Long reserve = reserveService.updateReserve(dto);
 
         return reserve != null ?
-                new ResponseEntity(DefaultRes.res(StatusCode.OK, "매칭 추가 완료"), HttpStatus.OK) :
+                new ResponseEntity(DefaultRes.res(StatusCode.OK, "구장 수정 완료"), HttpStatus.OK) :
                 new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);    }
+
+
+
+    // 경기 삭제
+    @DeleteMapping("reserves/{reserveId}/delete")
+    public ResponseEntity deleteReserve(@PathVariable Long reserveId){
+
+        reserveService.cancelReserve(reserveId);
+
+        return reserveId != null ?
+                new ResponseEntity(DefaultRes.res(StatusCode.OK, "경기예약 삭제 완료"), HttpStatus.OK):
+                new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);
+
+
+    }
+
+
 
 
     // 원하는 날짜,스포츠 정렬해서 경기들 보여 주기
@@ -66,20 +83,6 @@ public class ReserveController {
         return collect != null ?
                 new ResponseEntity(DefaultRes.res(StatusCode.OK, "매칭 조회 완료", collect), HttpStatus.OK) :
                 new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);
-
-    }
-
-
-
-    // 경기 삭제
-    @DeleteMapping("reserves/{reserveId}/delete")
-    public ResponseEntity deleteReserve(@PathVariable Long reserveId){
-
-        reserveService.cancelReserve(reserveId);
-
-        return reserveId != null ?
-                new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK):
-                new ResponseEntity(DefaultRes.res(StatusCode.OK, "경기예약 삭제 완료"), HttpStatus.OK) ;
 
     }
 
@@ -111,7 +114,6 @@ public class ReserveController {
                 new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);
 
     }
-
 
 
     

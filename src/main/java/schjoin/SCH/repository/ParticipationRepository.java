@@ -31,19 +31,23 @@ public class ParticipationRepository {
 
     public List<Participation> findReserveInfo(Long id){
         return em.createQuery("select distinct p from Participation p"+
-                " left join fetch p.member m"+
+                " left join fetch p.user u"+
                 " left join fetch p.reserve r"+
                 " where r.id = :id ",Participation.class).setParameter("id",id).getResultList();
     }
 
 
+
+    public Participation findParticipation(Long reserveId,Long userId){
+
+        Participation result = em.createQuery("select p from Participation p"+
+                " left join fetch p.user u"+
+                " left join fetch p.reserve r"+
+                " where r.id = :reserveId and u.id = :userId ", Participation.class).setParameter("reserveId", reserveId).setParameter("userId", userId).getSingleResult();
+
+        return result;
+    }
+
+
 }
 
-
-/**
- *
- * 1. reserve id 값에 있는 정보만 가져올 수 있는지??
- * 2. 위 코드 방법처럼 했을 때 경기 정보가 아닌 참여한 사용자 정보만을 가져올 수 있는지?
- * 3. 애초에 api를 2개 만들기, 1) 경기 정보를 가져오기 2) 경기 참여한 사용자 정보 가져오기
- *
- * */

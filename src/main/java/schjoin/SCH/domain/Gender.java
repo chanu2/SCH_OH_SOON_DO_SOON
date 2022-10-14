@@ -5,5 +5,5 @@ import javax.persistence.Enumerated;
 
 
 public enum Gender {
-    MALE,FEMALE,ALL
+    MAN,WOMEN,ALL
 }

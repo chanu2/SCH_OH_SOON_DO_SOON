@@ -6,11 +6,11 @@ import lombok.Getter;
 @Getter
 public class ParticipationSportDto {
 
-    private Long memberId;
+    private Long userId;
     private Long reserveId;
 
     public ParticipationSportDto(Long memberId, Long reserveId) {
-        this.memberId = memberId;
+        this.userId = userId;
         this.reserveId = reserveId;
     }
     public  ParticipationSportDto(){

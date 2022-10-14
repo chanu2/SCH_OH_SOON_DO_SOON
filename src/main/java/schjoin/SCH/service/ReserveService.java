@@ -32,7 +32,7 @@ public class ReserveService {
     public Long reserve(CreateReserveDto createReserveDto){
 
         //엔티티 조회
-        User user = userRepository.findOne(createReserveDto.getMemberId());
+        User user = userRepository.findOne(createReserveDto.getUserId());
 
         // 경기 생성
         Reserve reserve = Reserve.createReserve(user, createReserveDto.getTitle(),
@@ -70,9 +70,9 @@ public class ReserveService {
 
     // 구장 업데이트
    @Transactional
-    public Long updateReserve(Long reserveId, UpdateReserveDto reserveDto){
+    public Long updateReserve(UpdateReserveDto reserveDto){
 
-        Reserve reserve = reserveRepository.findOne(reserveId);
+        Reserve reserve = reserveRepository.findOne(reserveDto.getReserveId());
 
         reserve.setReserveDate(reserveDto.getReserveDate());
         reserve.setEndT(reserveDto.getEndT());
@@ -83,9 +83,8 @@ public class ReserveService {
         reserve.setTitle(reserveDto.getTitle());
         reserve.setExplanation(reserveDto.getExplanation());
         reserve.setPlace(reserveDto.getPlace());
-        reserve.setGender(reserveDto.getGender());
 
-       return reserveId;
+       return reserve.getId();
    }
 
 

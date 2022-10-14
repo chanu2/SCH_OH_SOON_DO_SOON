@@ -25,11 +25,9 @@ public class ReserveRepository {
         return em.find(Reserve.class,id);
     }
 
-//    public void delete(Long id){
-//        em.createQuery("delete from Reserve r where r.id = :id ").setParameter("id",id).executeUpdate();;
-//    }
 
 
+    // 삭제
     public void delete(Reserve reserve){
         em.remove(reserve);
     }

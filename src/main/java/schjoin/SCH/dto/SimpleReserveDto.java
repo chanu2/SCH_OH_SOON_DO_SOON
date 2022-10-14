@@ -3,6 +3,7 @@ package schjoin.SCH.dto;
 
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
+import schjoin.SCH.domain.Gender;
 import schjoin.SCH.domain.Reserve;
 import schjoin.SCH.domain.Sport;
 
@@ -30,6 +31,8 @@ public class SimpleReserveDto {
 
     private Integer recruitmentNum;
 
+    private Gender gender;
+
     public SimpleReserveDto(Reserve reserve){
         sport=reserve.getSport();
         reserveDate =reserve.getReserveDate();
@@ -39,6 +42,7 @@ public class SimpleReserveDto {
         explanation = reserve.getExplanation();
         currentNum = reserve.getCurrentNum();
         recruitmentNum = reserve.getRecruitmentNum();
+        gender = reserve.getGender();
 
     }
 

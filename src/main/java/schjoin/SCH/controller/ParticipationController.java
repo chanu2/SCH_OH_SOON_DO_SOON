@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import schjoin.SCH.domain.Participation;
+import schjoin.SCH.dto.CancelParticipationDto;
 import schjoin.SCH.dto.ParticipationSportDto;
 import schjoin.SCH.dto.ReserveUserInfoDto;
 import schjoin.SCH.response.DefaultRes;
@@ -34,33 +35,23 @@ public class ParticipationController {
                 new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);
     }
 
-    // 참여 취소
-    @DeleteMapping("participants/{participationId}/delete")
-    public ResponseEntity cancelParticipation(@PathVariable Long participationId){
 
-         participationService.cancelParticipation(participationId);
+
+
+    // 참여 취소
+    @DeleteMapping("participants/delete")
+    public ResponseEntity cancelParticipation(@RequestBody @Validated CancelParticipationDto cancelParticipationDto){
+
+        Long participationId = participationService.cancelParticipation(cancelParticipationDto);
 
         return participationId != null ?
-                new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK):
-                new ResponseEntity(DefaultRes.res(StatusCode.OK, "경기 참여 취소"), HttpStatus.OK);
+
+        new ResponseEntity(DefaultRes.res(StatusCode.OK, "경기 참여 취소"), HttpStatus.OK):
+        new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);
     }
 
 
 
-    //  경기 세부 정보 보여주기
-//    @GetMapping("participations/{reserveId}/reserve-info")
-//    public ResponseEntity reserve1(@PathVariable("reserveId") Long reserveId) {
-//
-//        List<Participation> participations = participationService.reserveInfo(reserveId); // 경기 정보
-//
-//
-////        List<ReserveInfoDto> collect = participations.stream().map(p -> new ReserveInfoDto(p)).collect(Collectors.toList());
-//
-//        return participations != null ?
-//                new ResponseEntity(DefaultRes.res(StatusCode.OK, "경기 정보 보여주기 완료", participations), HttpStatus.OK) :
-//                new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);
-//
-//    }
 
 
 
@@ -79,9 +70,6 @@ public class ParticipationController {
                 new ResponseEntity(DefaultRes.res(StatusCode.BAD_REQUEST, "잘못된 요청"), HttpStatus.OK);
 
     }
-
-
-
 
 
 

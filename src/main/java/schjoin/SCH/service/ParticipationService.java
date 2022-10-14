@@ -6,12 +6,14 @@ import org.springframework.transaction.annotation.Transactional;
 import schjoin.SCH.domain.User;
 import schjoin.SCH.domain.Participation;
 import schjoin.SCH.domain.Reserve;
+import schjoin.SCH.dto.CancelParticipationDto;
 import schjoin.SCH.dto.ParticipationSportDto;
 import schjoin.SCH.repository.UserRepository;
 import schjoin.SCH.repository.ParticipationRepository;
 import schjoin.SCH.repository.ReserveRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,7 +28,7 @@ public class ParticipationService {
     @Transactional
     public Long participation(ParticipationSportDto participationSportDto){
         //엔티티 조회
-        User user = userRepository.findOne(participationSportDto.getMemberId());
+        User user = userRepository.findOne(participationSportDto.getUserId());
         Reserve reserve = reserveRepository.findOne(participationSportDto.getReserveId());
 
         //참가자 만들기
@@ -39,21 +41,30 @@ public class ParticipationService {
         return participation.getId();
     }
 
-    //참가자 취소
+
+
+    //참가 취소
+
     @Transactional
-    public void cancelParticipation(Long participationId){
+     public Long cancelParticipation(CancelParticipationDto cancelParticipationDto){
 
-        //방 엔티티 조회
-        Participation participation = participationRepository.findOne(participationId);
+
+
+        Participation participation = participationRepository.findParticipation(cancelParticipationDto.getReserveId(), cancelParticipationDto.getUserId());
+
+
         //방 현재원 하나 줄이기
-        participation.getReserve().subtractCurrentNum();
+         participation.getReserve().subtractCurrentNum();
 
-        participation.getReserve().subParticipation(participation);
+         participation.getReserve().subParticipation(participation);
 
-        //예약 최소
-        participationRepository.delete(participation.getId());
+          //예약 최소
+         participationRepository.delete(participation.getId());
+
+         return participation.getId();
 
     }
+
 
     // 방정보 조회
     @Transactional

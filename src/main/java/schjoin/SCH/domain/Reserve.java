@@ -20,13 +20,12 @@ public class Reserve {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     //orphanRemoval = true를 사용하면 부모의 엔티티가 사라지면 자식들도 다 사라진다 participations인 컬렉션은 다 날라간다
     @OneToMany(mappedBy = "reserve", orphanRemoval = true)
     private List<Participation> participations = new ArrayList<>();
-
 
     @Enumerated(EnumType.STRING)
     private Sport sport;

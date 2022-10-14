@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @Getter
 public class ReserveDto {
 
-    private Long id;
+    private Long reserveId;
 
     private Sport sport;
 
@@ -23,14 +23,12 @@ public class ReserveDto {
     private Integer currentNum;
     private Integer recruitmentNum;
 
-
-
     private String place;
 
     private Gender gender;
 
-    public ReserveDto(Long id, Sport sport, LocalDate reserveDate, LocalTime startT, LocalTime endT, String title, String explanation, Integer currentNum, Integer recruitmentNum, String place, Gender gender) {
-        this.id = id;
+    public ReserveDto(Long reserveId, Sport sport, LocalDate reserveDate, LocalTime startT, LocalTime endT, String title, String explanation, Integer currentNum, Integer recruitmentNum, String place, Gender gender) {
+        this.reserveId = reserveId;
         this.sport = sport;
         this.reserveDate = reserveDate;
         this.startT = startT;

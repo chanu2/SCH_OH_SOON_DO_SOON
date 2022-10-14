@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import schjoin.SCH.domain.User;
 import schjoin.SCH.dto.AddUserDto;
+import schjoin.SCH.dto.LoginDto;
 import schjoin.SCH.repository.UserRepository;
 
 @Service
@@ -24,7 +25,19 @@ public class UserService {
 
 
     //회원 한명 조회
+    @Transactional
     public User findOne(Long memberId){
         return userRepository.findOne(memberId);
     }
+
+
+    //로그인
+    @Transactional
+    public Long login(LoginDto loginDto){
+        User findUser = userRepository.findByLoginId(loginDto.getLoginId(),loginDto.getPassword());
+
+        return findUser.getId();
+
+    }
 }
+

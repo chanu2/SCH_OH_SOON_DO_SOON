@@ -50,6 +50,9 @@ public class InitDb {
             user2.setName("조준장");
             user3.setName("이선희");
 
+            user.setLoginId("abc");
+            user.setPassword("abcde");
+
 
             user.setPhoneNum("01082527933");
             user1.setPhoneNum("010825673865");

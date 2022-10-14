@@ -22,15 +22,14 @@ public class UserRepository {
     }
 
     public List<User> findAll(){
-        return em.createQuery("select m from Member m", User.class)
+        return em.createQuery("select u from User u", User.class)
                 .getResultList();
     }
 
-    public List<User> findByLoginId(String LoginId){
-        return em.createQuery("select m from Member m where m.loginId = :loginId", User.class)
-                .setParameter("loginId",LoginId)
-                .getResultList();
+    public User findByLoginId(String LoginId,String password){
+        return em.createQuery("select u from User u where u.loginId = :loginId and u.password = :password", User.class)
+                .setParameter("loginId",LoginId).setParameter("password",password)
+                .getSingleResult();
     }
-
 
 }

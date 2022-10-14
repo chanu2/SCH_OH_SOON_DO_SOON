@@ -16,6 +16,7 @@ import java.time.LocalTime;
 @Setter
 public class UpdateReserveDto {
 
+    private Long reserveId;
     private Sport sport;
 
     private LocalDate reserveDate;
@@ -26,9 +27,10 @@ public class UpdateReserveDto {
     private String explanation;
 
     private String place;
-    private Gender gender;
 
-    public UpdateReserveDto(Sport sport, LocalDate reserveDate, LocalTime starT, LocalTime endT, String title, String explanation,String place,Gender gender) {
+
+    public UpdateReserveDto(Long reserveId,Sport sport, LocalDate reserveDate, LocalTime starT, LocalTime endT, String title, String explanation,String place) {
+        this.reserveId =reserveId;
         this.sport = sport;
         this.reserveDate = reserveDate;
         this.startT = starT;
@@ -36,7 +38,6 @@ public class UpdateReserveDto {
         this.title = title;
         this.explanation = explanation;
         this.place = place;
-        this.gender = gender;
     }
 
     public UpdateReserveDto(){
